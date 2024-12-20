@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  final Function toggleTheme;
+  final bool isDark;
+
+  const ProfilePage({Key? key, required this.toggleTheme, required this.isDark}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? Colors.grey[900] : Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -77,6 +80,15 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
               _buildPerformanceChart(),
+              const SizedBox(height: 20),
+              ListTile(
+                leading: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                title: Text('Night Mode'),
+                trailing: Switch(
+                  value: isDark,
+                  onChanged: (value) => toggleTheme(),
+                ),
+              ),
             ],
           ),
         ),

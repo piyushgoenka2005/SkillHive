@@ -13,8 +13,8 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
     surface: Colors.white,
-    primary: Colors.grey.shade300,
-    secondary: Colors.grey.shade200,
+    //primary: Colors.grey.shade300,
+    //secondary: Colors.grey.shade200,
   ),
 );
 
@@ -39,36 +39,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isDark = false; // Default theme is light
+  bool isDark = false;
 
-  // Function to toggle theme based on the button press in HomePage
-  void toggleTheme(bool value) {
+  void toggleTheme() {
     setState(() {
-      isDark =
-          value; // Set isDark to the value received from HomePage button press
+      isDark = !isDark; // Simply toggle between true/false
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: isDark
-          ? darkTheme
-          : lightTheme, // Use the value of isDark to decide theme
-      title: 'SkillHive',
-      initialRoute: '/loading-page',
+      theme: isDark ? darkTheme : lightTheme,
+      initialRoute: '/',
       routes: {
-        '/loading-page': (context) => LoadingPage(),
-        '/starting-page': (context) => StartingPage(),
-        '/home': (context) =>
-            HomePage(toggleTheme: toggleTheme), // Pass toggleTheme to HomePage
-        '/sign-up': (context) => SignUpPage(),
-        '/login': (context) => LoginPage(),
-        '/profile-page': (context) => ProfilePage(),
-        '/forgot-password': (context) => ForgotPasswordScreen(),
-        '/explore-page': (context) => ExplorePage(),
-        '/bookmark-page': (context) => BookmarksPage(),
+        '/': (context) => const LoadingPage(),
+        '/starting-page': (context) => const StartingPage(),
+        '/login': (context) => const LoginPage(),
+        '/sign-up': (context) => const SignUpPage(),
+        '/forgot-password': (context) => const ForgotPasswordScreen(),
+        '/home': (context) => HomePage(toggleTheme: toggleTheme, isDark: isDark),
+        '/profile-page': (context) => ProfilePage(toggleTheme: toggleTheme, isDark: isDark),
+        '/explore-page': (context) => const ExplorePage(),
+        '/bookmark-page': (context) => const BookmarksPage(),
       },
     );
   }
