@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  final Function(bool) toggleTheme;
-  const HomePage({super.key, required this.toggleTheme});
+  final Function toggleTheme;
+  final bool isDark;
+
+  const HomePage({Key? key, required this.toggleTheme, required this.isDark}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,153 +26,156 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.black),
             onPressed: () {
-              _showSettingsBottomSheet(context, toggleTheme);
+              _showSettingsBottomSheet(context, toggleTheme, isDark);
             },
           ),
         ],
       ),
       drawer: CustomDrawer(userName: 'Piyush Goenka'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Gap after AppBar
-            const SizedBox(height: 20),
+      body: Container(
+        color: isDark ? Colors.grey[900] : Colors.white,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Gap after AppBar
+              const SizedBox(height: 20),
 
-            // Top Banner
-            Container(
-              width: double.infinity,
-              height: 200,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300, // Placeholder color
-                borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
-                  image: AssetImage(
-                      'assets/images/banner.jpg'), // Replace with your image
-                  fit: BoxFit.cover,
+              // Top Banner
+              Container(
+                width: double.infinity,
+                height: 200,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300, // Placeholder color
+                  borderRadius: BorderRadius.circular(12),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                        'assets/images/banner.jpg'), // Replace with your image
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
 
-            // Gap after Banner
-            const SizedBox(height: 30),
+              // Gap after Banner
+              const SizedBox(height: 30),
 
-            // Join Class Section
-            Center(
-              child: Column(
-                children: [
-                  const Text(
-                    'Need to add a class?',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Text(
-                      'Add your teacher with their class code or email address.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
+              // Join Class Section
+              Center(
+                child: Column(
+                  children: [
+                    const Text(
+                      'Need to add a class?',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Text(
+                        'Add your teacher with their class code or email address.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey),
                       ),
                     ),
-                    child: const Text('Join class',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                ],
-              ),
-            ),
-
-            // Gap after Join Class
-            const SizedBox(height: 30),
-
-            // Recent Lessons Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Recent lessons',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 100,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'No recent lessons',
-                          style: TextStyle(color: Colors.grey),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
+                      child: const Text('Join class',
+                          style: TextStyle(color: Colors.white)),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-            // Gap after Recent Lessons
-            const SizedBox(height: 30),
+              // Gap after Join Class
+              const SizedBox(height: 30),
 
-            // My Courses Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'My courses',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    height: 100,
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey.shade300),
-                      ),
-                      child: Center(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+              // Recent Lessons Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Recent lessons',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 100,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'No recent lessons',
+                            style: TextStyle(color: Colors.grey),
                           ),
-                          child: const Text('Get started',
-                              style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-            // Final Gap
-            const SizedBox(height: 20),
-          ],
+              // Gap after Recent Lessons
+              const SizedBox(height: 30),
+
+              // My Courses Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'My courses',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 100,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: Center(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text('Get started',
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Final Gap
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -206,37 +211,21 @@ class HomePage extends StatelessWidget {
   }
 }
 
-void _showSettingsBottomSheet(
-    BuildContext context, Function(bool) toggleTheme) {
+void _showSettingsBottomSheet(BuildContext context, Function toggleTheme, bool isDark) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
       return Container(
-        child: Wrap(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.drive_eta),
-              title: Text('Ride Mode'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.center_focus_strong),
-              title: Text('Focus Mode'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.nightlight_round),
-              title: Text('Night Mode'),
-              onTap: () {
-                toggleTheme(true);
-                Navigator.pop(context);
-              },
-            ),
-          ],
+        child: ListTile(
+          leading: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+          title: Text('Night Mode'),
+          trailing: Switch(
+            value: isDark,
+            onChanged: (value) {
+              toggleTheme();
+              Navigator.pop(context);
+            },
+          ),
         ),
       );
     },
