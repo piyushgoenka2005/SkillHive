@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Function(bool) toggleTheme;
+  const HomePage({super.key, required this.toggleTheme});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.black),
             onPressed: () {
-              _showSettingsBottomSheet(context);
+              _showSettingsBottomSheet(context, toggleTheme);
             },
           ),
         ],
@@ -167,44 +168,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-            // Gap after My Courses
-            const SizedBox(height: 30),
-
-            // Kids Section
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              color: Colors.grey.shade100,
-              child: Column(
-                children: [
-                  const Text(
-                    'Khan Academy Kids',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    'Get our free, award-winning app for kids ages 2-8.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: const Text('Download now',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                ],
-              ),
-            ),
-
             // Final Gap
             const SizedBox(height: 20),
           ],
@@ -243,7 +206,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-void _showSettingsBottomSheet(BuildContext context) {
+void _showSettingsBottomSheet(
+    BuildContext context, Function(bool) toggleTheme) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -266,8 +230,9 @@ void _showSettingsBottomSheet(BuildContext context) {
             ),
             ListTile(
               leading: Icon(Icons.nightlight_round),
-              title: Text('Night Vision'),
+              title: Text('Night Mode'),
               onTap: () {
+                toggleTheme(true);
                 Navigator.pop(context);
               },
             ),

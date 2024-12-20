@@ -20,18 +20,6 @@ class ExplorePage extends StatelessWidget {
         title: const Text('Explore', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.black),
-            onPressed: () {
-              // Implement search functionality
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(),
-              );
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(

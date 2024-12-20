@@ -54,7 +54,6 @@ class ProfilePage extends StatelessWidget {
                   _buildChip("React"),
                   _buildChip("Node.js"),
                   _buildChip("MongoDB"),
-                  _buildChip("TypeScript"),
                 ],
               ),
               const SizedBox(height: 20),
@@ -67,7 +66,9 @@ class ProfilePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey.shade200,
                       foregroundColor: Colors.black),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/forgot-password');
+                  },
                   child: const Text("Change Password"),
                 ),
               ),
@@ -128,6 +129,19 @@ class ProfilePage extends StatelessWidget {
           color: Colors.grey.shade200,
           child: const Center(
             child: Text("Pie Chart Placeholder (Use a chart library here)"),
+          ),
+        ),
+        const SizedBox(height: 20),
+        const Text(
+          "Performance",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          height: 150,
+          color: Colors.grey.shade200,
+          child: const Center(
+            child: Text("Pie Chart performance"),
           ),
         ),
       ],
