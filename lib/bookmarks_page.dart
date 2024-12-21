@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BookmarksPage extends StatefulWidget {
-  const BookmarksPage({super.key});
+  final Function toggleTheme;
+  final bool isDark;
+
+  const BookmarksPage(
+      {super.key, required this.toggleTheme, required this.isDark});
 
   @override
   State<BookmarksPage> createState() => _BookmarksPageState();
@@ -33,10 +37,38 @@ class _BookmarksPageState extends State<BookmarksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bookmarks', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.menu,
+                color: widget.isDark
+                    ? Colors.white
+                    : Colors.black), // Icon color fixed
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        title: Text('Bookmarks',
+            style: TextStyle(
+                color: widget.isDark
+                    ? Colors.white
+                    : Colors.black)), // Title color fixed
+        backgroundColor: widget.isDark
+            ? Colors.black
+            : Colors.white, // Background color fixed
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings,
+                color: widget.isDark
+                    ? Colors.white
+                    : Colors.black), // Icon color fixed
+            onPressed: () {
+              _showSettingsBottomSheet(
+                  context, widget.toggleTheme, widget.isDark);
+            },
+          ),
+        ],
       ),
+      drawer: CustomDrawer(userName: 'Piyush Goenka'),
       body: bookmarkedItems.isEmpty
           ? const Center(
               child: Column(
@@ -111,7 +143,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blue,
         unselectedItemColor: Colors.grey,
-        currentIndex: 0,
+        currentIndex: 2,
         onTap: (index) {
           // Do nothing for now
           if (index == 1) {
@@ -137,6 +169,147 @@ class _BookmarksPageState extends State<BookmarksPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+void _showSettingsBottomSheet(
+    BuildContext context, Function toggleTheme, bool isDark) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+          child: Wrap(
+        children: <Widget>[
+          ListTile(
+            leading: Icon(Icons.drive_eta),
+            title: Text('Ride Mode'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.center_focus_strong),
+            title: Text('Focus Mode'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+            title: Text('Night Mode'),
+            trailing: Switch(
+              value: isDark,
+              onChanged: (value) {
+                toggleTheme();
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
+      ));
+    },
+  );
+}
+
+class CustomDrawer extends StatelessWidget {
+  final String userName;
+  const CustomDrawer({super.key, required this.userName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: [
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue[400],
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/profile_image.png'),
+            ),
+            accountName: Text(
+              userName,
+              style: TextStyle(fontSize: 20),
+            ),
+            accountEmail: null,
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                _buildMenuItem(
+                  context,
+                  icon: Icons.person_outline,
+                  title: 'My profile',
+                  routeName: '/profile-page',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.school,
+                  title: 'Learnings',
+                  routeName: '/learnings',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.trending_up,
+                  title: 'Performance',
+                  routeName: '/performance',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.quiz,
+                  title: 'Quiz',
+                  routeName: '/quiz',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.person_add_outlined,
+                  title: 'Invite friends',
+                  routeName: '/invite-friends',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.info_outline,
+                  title: 'About',
+                  routeName: '/about',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.security,
+                  title: 'Change Password',
+                  routeName: '/forgot-password',
+                ),
+                _buildMenuItem(
+                  context,
+                  icon: Icons.exit_to_app,
+                  title: 'Logout',
+                  routeName: '/',
+                  isReplacement: true,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ListTile _buildMenuItem(BuildContext context,
+      {required IconData icon,
+      required String title,
+      required String routeName,
+      bool isReplacement = false}) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title, style: TextStyle(fontSize: 16)),
+      onTap: () {
+        Navigator.pop(context); // Close the drawer
+        if (isReplacement) {
+          Navigator.pushReplacementNamed(context, routeName);
+        } else {
+          Navigator.pushNamed(context, routeName);
+        }
+      },
     );
   }
 }

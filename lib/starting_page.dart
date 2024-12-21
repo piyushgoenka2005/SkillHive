@@ -33,7 +33,7 @@ class StartingPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         // Navigate to the sign-up page
-                        Navigator.pushNamed(context, '/sign-up');
+                        Navigator.pushNamed(context, '/home');
                       },
                       child: Text('Continue'),
                     ),
