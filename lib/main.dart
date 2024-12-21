@@ -19,8 +19,6 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
     surface: Colors.white,
-    //primary: Colors.grey.shade300,
-    //secondary: Colors.grey.shade200,
   ),
 );
 
@@ -30,7 +28,7 @@ ThemeData darkTheme = ThemeData(
     surface: Colors.grey.shade900,
     primary: Colors.grey.shade800,
     secondary: Colors.grey.shade700,
-  ), // ColorScheme.dark
+  ),
 );
 
 void main() {
@@ -47,9 +45,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isDark = false;
 
-  void toggleTheme() {
+  void toggleTheme(bool value) {
     setState(() {
-      isDark = !isDark; // Simply toggle between true/false
+      isDark = value; // Set the theme based on the passed value
     });
   }
 

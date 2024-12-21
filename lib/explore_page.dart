@@ -568,7 +568,7 @@ void _showSettingsBottomSheet(
             trailing: Switch(
               value: isDark,
               onChanged: (value) {
-                toggleTheme();
+                toggleTheme(value);
                 Navigator.pop(context);
               },
             ),

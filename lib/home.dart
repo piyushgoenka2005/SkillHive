@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  final Function toggleTheme;
+  final Function(bool) toggleTheme;
   final bool isDark;
-
-  const HomePage({super.key, required this.toggleTheme, required this.isDark});
+  const HomePage({Key? key, required this.toggleTheme, required this.isDark})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -222,40 +222,41 @@ class HomePage extends StatelessWidget {
 }
 
 void _showSettingsBottomSheet(
-    BuildContext context, Function toggleTheme, bool isDark) {
+    BuildContext context, Function(bool) toggleTheme, bool isDark) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
       return Container(
-          child: Wrap(
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.drive_eta),
-            title: Text('Ride Mode'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.center_focus_strong),
-            title: Text('Focus Mode'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-            title: Text('Night Mode'),
-            trailing: Switch(
-              value: isDark,
-              onChanged: (value) {
-                toggleTheme();
+        child: Wrap(
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.drive_eta),
+              title: Text('Ride Mode'),
+              onTap: () {
                 Navigator.pop(context);
               },
             ),
-          ),
-        ],
-      ));
+            ListTile(
+              leading: Icon(Icons.center_focus_strong),
+              title: Text('Focus Mode'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+              title: Text('Night Mode'),
+              trailing: Switch(
+                value: isDark,
+                onChanged: (value) {
+                  toggleTheme(value);
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     },
   );
 }
