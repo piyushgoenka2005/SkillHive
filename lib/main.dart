@@ -63,7 +63,8 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => const LoginPage(),
         '/edit-profile': (context) => EditProfilePage(isDark: isDark),
         '/sign-up': (context) => const SignUpPage(),
-        '/forgot-password': (context) => const ForgotPasswordScreen(),
+        '/forgot-password': (context) =>
+             ForgotPasswordScreen(isDark: isDark),
         '/home': (context) =>
             HomePage(toggleTheme: toggleTheme, isDark: isDark),
         '/profile-page': (context) =>

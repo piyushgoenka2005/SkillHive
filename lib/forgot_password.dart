@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+  final bool isDark;
+
+  const ForgotPasswordScreen({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,
+              color: isDark ? Colors.white : Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         elevation: 0,
       ),
       body: Padding(
@@ -20,30 +23,31 @@ class ForgotPasswordScreen extends StatelessWidget {
           children: [
             // Logo
             Image.asset(
-              'assets/images/logo.jpg', // Make sure to add your logo to assets
+              'assets/images/logo.jpg',
               height: 80,
               width: 80,
             ),
             const SizedBox(height: 20),
 
             // Title
-            const Text(
+            Text(
               'Forgot password',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Script', // Use your preferred font
+                fontFamily: 'Script',
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             const SizedBox(height: 16),
 
             // Description
-            const Text(
-              'Entry your e-mail address or phone number to reset the password',
+            Text(
+              'Enter your e-mail address or phone number to reset the password',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black87,
+                color: isDark ? Colors.grey[300] : Colors.black87,
               ),
             ),
             const SizedBox(height: 40),
@@ -52,14 +56,18 @@ class ForgotPasswordScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: isDark ? Colors.grey[800] : Colors.grey[200],
                 borderRadius: BorderRadius.circular(30),
               ),
               child: TextField(
+                style: TextStyle(color: isDark ? Colors.white : Colors.black),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'e-mail or phone number',
-                  icon: Icon(Icons.email_outlined, color: Colors.grey[600]),
+                  hintStyle: TextStyle(
+                      color: isDark ? Colors.grey[400] : Colors.grey[600]),
+                  icon: Icon(Icons.email_outlined,
+                      color: isDark ? Colors.grey[400] : Colors.grey[600]),
                 ),
               ),
             ),
@@ -73,7 +81,8 @@ class ForgotPasswordScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const OtpVerificationScreen()),
+                        builder: (context) =>
+                            OtpVerificationScreen(isDark: isDark)),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -97,17 +106,20 @@ class ForgotPasswordScreen extends StatelessWidget {
 }
 
 class OtpVerificationScreen extends StatelessWidget {
-  const OtpVerificationScreen({super.key});
+  final bool isDark;
+
+  const OtpVerificationScreen({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back,
+              color: isDark ? Colors.white : Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? Colors.black : Colors.white,
         elevation: 0,
       ),
       body: Padding(
@@ -116,31 +128,32 @@ class OtpVerificationScreen extends StatelessWidget {
           children: [
             // Logo
             Image.asset(
-              'assets/logo.png', // Make sure to add your logo to assets
+              'assets/images/logo.jpg',
               height: 80,
               width: 80,
             ),
             const SizedBox(height: 20),
 
             // Title
-            const Text(
-              'Enter to code to verify\nyour phone',
+            Text(
+              'Enter the code to verify\nyour phone',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Script', // Use your preferred font
+                fontFamily: 'Script',
+                color: isDark ? Colors.white : Colors.black,
               ),
             ),
             const SizedBox(height: 16),
 
             // Description
-            const Text(
+            Text(
               'We have sent you an SMS with a verification code. Please enter the code',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black87,
+                color: isDark ? Colors.grey[300] : Colors.black87,
               ),
             ),
             const SizedBox(height: 40),
@@ -154,13 +167,15 @@ class OtpVerificationScreen extends StatelessWidget {
                   width: 50,
                   height: 50,
                   child: TextField(
+                    style:
+                        TextStyle(color: isDark ? Colors.white : Colors.black),
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,
                     decoration: InputDecoration(
                       counterText: '',
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: isDark ? Colors.grey[800] : Colors.grey[200],
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide.none,
